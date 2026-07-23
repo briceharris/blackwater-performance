@@ -7,11 +7,18 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (toggle && links) {
     toggle.addEventListener('click', () => {
-      links.classList.toggle('open');
+      const isOpen = links.classList.toggle('open');
+      toggle.classList.toggle('active', isOpen);
+      document.body.classList.toggle('nav-open', isOpen);
+      toggle.setAttribute('aria-expanded', String(isOpen));
     });
 
     links.querySelectorAll('a').forEach((link) => {
-      link.addEventListener('click', () => links.classList.remove('open'));
+      link.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.classList.remove('active');
+        document.body.classList.remove('nav-open');
+      });
     });
   }
 
